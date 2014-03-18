@@ -1,0 +1,84 @@
+body {
+}
+
+#body {
+	background-color: #e9e9e9;
+	width: 800px;
+	margin: auto;
+	font-size: 10pt;
+}
+
+#header {
+	padding: 1px;
+}
+
+#content {
+	margin: auto;
+}
+
+#leftcontent {
+	float: left;
+	margin: auto;
+	width: 215px;
+    padding-left: 25px;
+}
+
+#control {
+	margin: auto;
+	padding-bottom: 10px;
+}
+
+#dir {
+	margin: auto;
+}
+
+#rightcontent {
+	margin: auto;
+	width: 475px;
+	display: inline-block;
+	padding-left: 35px;
+	padding-right: 25px;
+}
+
+#title {
+	text-align: center;
+}
+
+#blog {
+
+}
+
+#comments {
+}
+
+#commenthead {
+    text-align: right;
+    width: 250px;
+}
+
+#commentbody {
+    width: 250px;
+}
+
+#footer {
+    font-size: 8pt;
+    text-align: center;
+    padding: 6px;
+    float: clear;
+}
+
+a:hover {
+	color: red;
+}
+
+h1 {
+	text-align: center;
+}
+
+.dialog {
+}
+
+.error {
+	font-weight: bold;
+	color: red;
+}
