@@ -20,12 +20,13 @@ public class BlogBean implements Serializable {
 
 	public BlogBean() {}
 
-	public BlogBean(String title, String content, String meta, Integer blogid, Integer userid) {
+	public BlogBean(String title, String content, String meta, Integer blogid, Integer userid, Date date) {
 		this.title = title;
 		this.content = content;
 		this.meta = meta;
 		this.blogid = blogid;
 		this.userid = userid;
+		this.date = date;
 	}
 
 	public String getTitle() {
@@ -46,10 +47,6 @@ public class BlogBean implements Serializable {
 	
 	public String getContent() {
 		return content;
-	}
-	
-	public String getHtml() {
-		return "<p>" + content.replace("\n", "</p><p>") + "</p>";
 	}
 
 	public void setContent(String content) {
@@ -78,6 +75,10 @@ public class BlogBean implements Serializable {
 
 	public void setUserid(Integer userid) {
 		this.userid = userid;
+	}
+	
+	public String toString() {
+		return title;
 	}
 
 }

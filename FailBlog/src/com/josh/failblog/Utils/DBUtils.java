@@ -75,16 +75,17 @@ public class DBUtils implements Serializable {
 					command);
 			stmt.setInt(1, blogid);
 			ResultSet rs = stmt.executeQuery();
-			BlogBean blogBean = new BlogBean();
+			BlogBean blog = new BlogBean();
 			while (rs.next()) {
-				blogBean.setBlogid(rs.getInt("blogid"));
-				blogBean.setTitle(rs.getString("title"));
-				blogBean.setContent(rs.getString("content"));
-				blogBean.setMeta(rs.getString("meta"));
-				blogBean.setUserid(rs.getInt("userid"));
+				blog.setBlogid(rs.getInt("blogid"));
+				blog.setTitle(rs.getString("title"));
+				blog.setContent(rs.getString("content"));
+				blog.setMeta(rs.getString("meta"));
+				blog.setUserid(rs.getInt("userid"));
+				blog.setDate(rs.getDate("date"));
 			}
 			rs.close();
-			return blogBean;
+			return blog;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -99,15 +100,15 @@ public class DBUtils implements Serializable {
 			stmt.setInt(1, userid);
 			ResultSet rs = stmt.executeQuery();
 			TreeMap<Integer, BlogBean> blogMap = new TreeMap<Integer, BlogBean>();
-				while (rs.next()) {
-					blogMap.put(
-							rs.getInt("blogid"),
-							new BlogBean(rs.getString("title"), rs
-									.getString("content"),
-									rs.getString("meta"), rs.getInt("blogid"),
-									rs.getInt("userid")));
-				}
-				rs.close();
+			while (rs.next()) {
+				blogMap.put(
+						rs.getInt("blogid"),
+						new BlogBean(rs.getString("title"), rs
+								.getString("content"), rs.getString("meta"), rs
+								.getInt("blogid"), rs.getInt("userid"), rs
+								.getDate("date")));
+			}
+			rs.close();
 			return blogMap;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -122,16 +123,15 @@ public class DBUtils implements Serializable {
 					command);
 			ResultSet rs = stmt.executeQuery();
 			TreeMap<Integer, BlogBean> blogMap = new TreeMap<Integer, BlogBean>();
-				while (rs.next()) {
-					blogMap.put(
-							rs.getInt("blogid"),
-							new BlogBean(rs.getString("title"), rs
-									.getString("content"),
-									rs.getString("meta"), rs.getInt("blogid"),
-									rs.getInt("userid")));
-				}
-				rs.close();
-			
+			while (rs.next()) {
+				blogMap.put(
+						rs.getInt("blogid"),
+						new BlogBean(rs.getString("title"), rs
+								.getString("content"), rs.getString("meta"), rs
+								.getInt("blogid"), rs.getInt("userid"), rs
+								.getDate("date")));
+			}
+			rs.close();
 			return blogMap;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -187,8 +187,8 @@ public class DBUtils implements Serializable {
 			stmt.setString(1, username);
 			ResultSet rs = stmt.executeQuery();
 			UserBean user = null;
-			if (rs.first()) { 
-				user  = new UserBean();
+			if (rs.first()) {
+				user = new UserBean();
 				user.setFirstname(rs.getString("firstname"));
 				user.setLastname(rs.getString("lastname"));
 				user.setEmail(rs.getString("email"));
@@ -240,10 +240,9 @@ public class DBUtils implements Serializable {
 	}
 
 	public static void main(String[] args) {
-		TreeMap<Integer, CommentBean> tmp = DBUtils.selectComments(1);
-		for (CommentBean commentBean : tmp.values().toArray(
-				new CommentBean[tmp.size()])) {
-			System.out.println(commentBean.getContent());
+		TreeMap<Integer, BlogBean> tmp = DBUtils.selectBlogs(1);
+		for (BlogBean blog : tmp.values().toArray(new BlogBean[tmp.size()])) {
+			System.out.println(blog.getDate());
 		}
 	}
 

@@ -42,10 +42,6 @@
 			<url>http://repository.primefaces.org</url>
 			<layout>default</layout>
 		</repository>
-		<repository>
-			<id>googlecode.com</id>
-			<url>http://gmaps4jsf.googlecode.com/svn/trunk/gmaps4jsf-repo</url>
-		</repository>
 	</repositories>
 	<dependencies>
 		<dependency>
@@ -67,11 +63,6 @@
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
 			<version>4.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.googlecode.gmaps4jsf</groupId>
-			<artifactId>gmaps4jsf-core</artifactId>
-			<version>1.1.1</version>
 		</dependency>
 	</dependencies>
 </project>

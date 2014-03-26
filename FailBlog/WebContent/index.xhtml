@@ -22,15 +22,16 @@
 				<div id="control">
 					<h:form rendered="#{not userController.authenticated}">
 						<h:panelGrid columns="2">
-							<h:outputLabel value="Username:" />
+							<h:outputText value="Username:" />
 							<h:inputText value="#{userController.username}" required="true"
 								requiredMessage="Username required" />
-							<h:outputLabel value="Password:" />
+							<h:outputText value="Password:" />
 							<h:inputSecret value="#{userController.password}" required="true"
 								requiredMessage="Password required" />
 						</h:panelGrid>
-						<h:commandButton value="Login" action="#{userController.login}" />
-						<h:commandButton id="registerButton" value="Register"
+						<p:commandButton value="Login" ajax="false"
+							actionListener="#{userController.login}" />
+						<p:commandButton id="registerButton" value="Register" ajax="false"
 							onclick="PF('dlgreg').show();" type="button" />
 						<h:messages styleClass="error" />
 					</h:form>
@@ -88,9 +89,9 @@
 									<h:message for="confirmPassword" styleClass="error" />
 								</h:panelGrid>
 
-								<h:commandButton value="Submit"
+								<p:commandButton value="Submit" ajax="false"
 									action="#{userController.createUser}" />
-								<h:commandButton value="Cancel" immediate="true"
+								<p:commandButton value="Cancel" immediate="true" ajax="false"
 									action="#{userController.cancelCreateUser}" />
 								<h:messages for="registerForm" styleClass="error" />
 							</h:form>
@@ -100,16 +101,20 @@
 
 					<!-- User Control Panel -->
 					<h:form rendered="#{userController.authenticated}">
-						<h4>Welcome #{userController.user.username}</h4>
+						<h4>
+							<h:outputText value="Welcome #{userController.user.username}" />
+						</h4>
 						<h:panelGrid columns="2">
-							<h:commandButton value="Logout" action="#{userController.logout}">
+							<p:commandButton value="Logout" ajax="false"
+								action="#{userController.logout}">
 								<f:setPropertyActionListener target="#{blogController.editable}"
 									value="false" />
-							</h:commandButton>
-							<h:commandButton action="#{blogController.newBlog}" value="New">
+							</p:commandButton>
+							<p:commandButton action="#{blogController.newBlog}" value="New"
+								ajax="false">
 								<f:setPropertyActionListener target="#{blogController.userid}"
 									value="#{userController.user.userid}" />
-							</h:commandButton>
+							</p:commandButton>
 						</h:panelGrid>
 					</h:form>
 				</div>
@@ -120,16 +125,30 @@
 					<h:form>
 						<h:dataTable var="blogEntry" value="#{blogController.blogs}">
 							<h:column>
-								<h:commandLink value="#{blogEntry.title}"
+								<p:commandLink value="#{blogEntry.title}" ajax="false"
 									action="#{blogController.renderBlog}">
 									<f:setPropertyActionListener target="#{blogController.blogid}"
 										value="#{blogEntry.blogid}" />
 									<f:setPropertyActionListener
 										target="#{commentController.blogid}"
 										value="#{blogEntry.blogid}" />
-								</h:commandLink>
+								</p:commandLink>
 							</h:column>
 						</h:dataTable>
+					</h:form>
+
+
+					<h:form rendered="false">
+						<p:tree value="#{treeBean.root}" var="node" id="tree"
+							selectionMode="single" selection="#{treeBean.selectedNode}">
+							<p:treeNode id="treeNode">
+								<p:commandLink listener="#{blogController.renderBlog}" ajax="false">
+									<h:outputText value="#{node}" />
+<!-- 									<f:setPropertyActionListener target="#{blogController.node}" -->
+<!-- 										value="#{node}" /> -->
+								</p:commandLink>
+							</p:treeNode>
+						</p:tree>
 					</h:form>
 				</div>
 			</div>
@@ -140,24 +159,29 @@
 
 				<!-- Blog Content -->
 				<h:panelGroup rendered="#{not blogController.editable}">
-					<div id="title">
-						<h2>
-							<h:outputText escape="false" value="#{blogController.blog.title}" />
-						</h2>
-					</div>
-					<div id="blog">
+					<!-- 					<div id="title"> -->
+					<!-- 						<h2> -->
+					<!-- 							<h:outputText escape="false" value="#{blogController.blog.title}" /> -->
+					<!-- 						</h2> -->
+					<!-- 					</div> -->
+					<!-- 					<div id="blog"> -->
+					<!-- 						<h:outputText escape="false" -->
+					<!-- 							value="#{blogController.blog.content}" /> -->
+					<!-- 					</div> -->
+					<p:fieldset
+						legend="#{blogController.blog.title} Blogid: #{blogController.blog.blogid}">
 						<h:outputText escape="false"
-							value="#{blogController.blog.content}" />
-					</div>
+							value="#{blogController.blog.content}"></h:outputText>
+					</p:fieldset>
 				</h:panelGroup>
 
 				<!-- Edit/Delete controls if authenticated and owner -->
 				<h:form
 					rendered="#{userController.authenticated and not blogController.editable}">
 					<div id="control">
-						<h:commandButton action="#{blogController.editBlog}" value="Edit"
+						<p:commandButton action="#{blogController.editBlog}" value="Edit" ajax="false"
 							rendered="#{blogController.blog.userid eq userController.user.userid}" />
-						<h:commandButton action="#{blogController.removeBlog}"
+						<p:commandButton action="#{blogController.removeBlog}" ajax="false"
 							value="Delete"
 							rendered="#{blogController.blog.userid eq userController.user.userid}" />
 					</div>
@@ -172,13 +196,13 @@
 						<h:message for="title" styleClass="error" />
 					</div>
 					<div id="content">
-						<h:inputTextarea value="#{blogController.blog.content}" rows="20"
-							cols="50" />
+						<p:editor id="editor" value="#{blogController.blog.content}"
+							width="475" />
 					</div>
 					<div>
-						<h:commandButton action="#{blogController.saveBlog}" value="Save" />
-						<h:commandButton action="#{blogController.cancelBlog}"
-							value="Cancel" />
+						<p:commandButton action="#{blogController.saveBlog}" value="Save" ajax="false" />
+						<p:commandButton action="#{blogController.cancelBlog}" ajax="false"
+							value="Cancel" immediate="true" />
 					</div>
 				</h:form>
 
@@ -204,17 +228,17 @@
 						</div>
 
 						<div>
-							<h:commandButton action="#{commentController.saveComment}"
-								value="Save">
+							<p:commandButton action="#{commentController.saveComment}"
+								value="Save" ajax="false">
 								<f:setPropertyActionListener
 									target="#{commentController.username}"
 									value="#{userController.user.username}" />
 								<f:setPropertyActionListener
 									target="#{commentController.comment.blogid}"
 									value="#{blogController.blogid}" />
-							</h:commandButton>
-							<h:commandButton action="#{commentController.cancelComment}"
-								value="Cancel" />
+							</p:commandButton>
+							<p:commandButton action="#{commentController.cancelComment}"
+								value="Cancel" ajax="false"/>
 						</div>
 					</h:form>
 				</div>
@@ -222,9 +246,7 @@
 			</div>
 		</div>
 		<div id="footer">
-			<p>
-				FailBlog Part Deux by josh
-			</p>
+			<p>FailBlog Part Deux by josh</p>
 		</div>
 	</div>
 </h:body>

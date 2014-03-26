@@ -19,7 +19,6 @@ CREATE TABLE IF NOT EXISTS `failblog`.`users` (
   `password` BLOB NULL DEFAULT NULL,
   PRIMARY KEY (`userid`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 10
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -42,7 +41,6 @@ CREATE TABLE IF NOT EXISTS `failblog`.`blogs` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 21
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -52,7 +50,7 @@ DEFAULT CHARACTER SET = utf8;
 CREATE TABLE IF NOT EXISTS `failblog`.`comments` (
   `commentid` INT(11) NOT NULL AUTO_INCREMENT,
   `blogid` INT(11) NULL DEFAULT NULL,
-  `username` BLOB NULL DEFAULT NULL,
+  `username` VARCHAR(25) NULL DEFAULT NULL,
   `content` BLOB NULL DEFAULT NULL,
   PRIMARY KEY (`commentid`),
   INDEX `blogid` (`blogid` ASC),
@@ -60,7 +58,6 @@ CREATE TABLE IF NOT EXISTS `failblog`.`comments` (
     FOREIGN KEY (`blogid`)
     REFERENCES `failblog`.`blogs` (`blogid`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 51
 DEFAULT CHARACTER SET = utf8;
 
 
