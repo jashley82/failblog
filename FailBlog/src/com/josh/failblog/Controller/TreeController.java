@@ -1,4 +1,4 @@
-package com.josh.failblog.Model;
+package com.josh.failblog.Controller;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,16 +12,17 @@ import javax.faces.bean.SessionScoped;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 
+import com.josh.failblog.Model.BlogBean;
 import com.josh.failblog.Utils.DBUtils;
 
 @ManagedBean
 @SessionScoped
-public class TreeBean implements Serializable {
+public class TreeController implements Serializable {
 	private static final long serialVersionUID = 8264128011860953792L;
 	private TreeNode root;
 	private TreeNode selectedNode;
 
-	public TreeBean() {
+	public TreeController() {
 		root = new DefaultTreeNode("Root", null);
 
 		ArrayList<TreeNode> tree = new ArrayList<TreeNode>();
@@ -60,9 +61,13 @@ public class TreeBean implements Serializable {
 	public void setSelectedNode(TreeNode selectedNode) {
 		this.selectedNode = selectedNode;
 	}
-
+	
+	public BlogBean nodeData() {
+		return (BlogBean) selectedNode.getData();
+	}
+	
 	public static void main(String[] args) {
-		TreeBean t = new TreeBean();
+		TreeController t = new TreeController();
 		System.out.println("Root: " + t.getRoot());
 		for (TreeNode node : t.getRoot().getChildren()) {
 			System.out.println("Node: " + node);

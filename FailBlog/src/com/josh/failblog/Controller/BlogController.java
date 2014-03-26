@@ -1,6 +1,7 @@
 package com.josh.failblog.Controller;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.TreeMap;
 
 import javax.faces.bean.ManagedBean;
@@ -9,7 +10,6 @@ import javax.faces.bean.SessionScoped;
 import org.primefaces.model.TreeNode;
 
 import com.josh.failblog.Model.BlogBean;
-import com.josh.failblog.Model.TreeBean;
 import com.josh.failblog.Utils.DBUtils;
 
 @ManagedBean
@@ -20,7 +20,6 @@ public class BlogController implements Serializable {
 	private Integer blogid;
 	private Integer userid;
 	private boolean editable;
-	private TreeNode node;
 
 	public BlogController() {
 		setBlog(DBUtils.selectBlog(1));
@@ -63,18 +62,8 @@ public class BlogController implements Serializable {
 		this.userid = userid;
 	}
 
-	public TreeNode getNode() {
-		return node;
-	}
-
-	public void setNode(TreeNode node) {
-		this.node = node;
-	}
-
 	public String renderBlog() {
-		setBlog(DBUtils.selectBlog(blogid));
-		// setBlog((BlogBean) node.getData());
-		System.out.println("Heheheheheheheh");
+		setblogid(blog.getBlogid());
 		setEditable(false);
 		return null;
 	}
@@ -104,14 +93,13 @@ public class BlogController implements Serializable {
 	}
 
 	public String cancelBlog() {
-		System.out.println("Yoyoyoyoyoy");
 		setEditable(false);
 		setBlog(DBUtils.selectBlog(blogid));
 		return null;
 	}
 
 	public static void main(String[] args) {
-		TreeBean t = new TreeBean();
+		TreeController t = new TreeController();
 		BlogController bc = new BlogController();
 		for (TreeNode node : t.getRoot().getChildren()) {
 			for (TreeNode leaf : node.getChildren()) {

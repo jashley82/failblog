@@ -126,9 +126,9 @@
 						<h:dataTable var="blogEntry" value="#{blogController.blogs}">
 							<h:column>
 								<p:commandLink value="#{blogEntry.title}" ajax="false"
-									action="#{blogController.renderBlog}">
-									<f:setPropertyActionListener target="#{blogController.blogid}"
-										value="#{blogEntry.blogid}" />
+									action="#{blogController.renderBlog()}">
+									<f:setPropertyActionListener target="#{blogController.blog}"
+										value="#{blogEntry}" />
 									<f:setPropertyActionListener
 										target="#{commentController.blogid}"
 										value="#{blogEntry.blogid}" />
@@ -138,14 +138,15 @@
 					</h:form>
 
 
-					<h:form rendered="false">
-						<p:tree value="#{treeBean.root}" var="node" id="tree"
-							selectionMode="single" selection="#{treeBean.selectedNode}">
+					<h:form>
+						<p:tree value="#{treeController.root}" var="node" id="tree"
+							selectionMode="single" selection="#{treeController.selectedNode}">
 							<p:treeNode id="treeNode">
-								<p:commandLink listener="#{blogController.renderBlog}" ajax="false">
+								<p:commandLink action="#{blogController.renderBlog}"
+									ajax="false">
 									<h:outputText value="#{node}" />
-<!-- 									<f:setPropertyActionListener target="#{blogController.node}" -->
-<!-- 										value="#{node}" /> -->
+									<f:setPropertyActionListener target="#{blogController.blog}"
+										value="#{treeController.nodeData()}" />
 								</p:commandLink>
 							</p:treeNode>
 						</p:tree>
@@ -179,10 +180,11 @@
 				<h:form
 					rendered="#{userController.authenticated and not blogController.editable}">
 					<div id="control">
-						<p:commandButton action="#{blogController.editBlog}" value="Edit" ajax="false"
+						<p:commandButton action="#{blogController.editBlog}" value="Edit"
+							ajax="false"
 							rendered="#{blogController.blog.userid eq userController.user.userid}" />
-						<p:commandButton action="#{blogController.removeBlog}" ajax="false"
-							value="Delete"
+						<p:commandButton action="#{blogController.removeBlog}"
+							ajax="false" value="Delete"
 							rendered="#{blogController.blog.userid eq userController.user.userid}" />
 					</div>
 				</h:form>
@@ -200,9 +202,10 @@
 							width="475" />
 					</div>
 					<div>
-						<p:commandButton action="#{blogController.saveBlog}" value="Save" ajax="false" />
-						<p:commandButton action="#{blogController.cancelBlog}" ajax="false"
-							value="Cancel" immediate="true" />
+						<p:commandButton action="#{blogController.saveBlog}" value="Save"
+							ajax="false" />
+						<p:commandButton action="#{blogController.cancelBlog}"
+							ajax="false" value="Cancel" immediate="true" />
 					</div>
 				</h:form>
 
@@ -238,7 +241,7 @@
 									value="#{blogController.blogid}" />
 							</p:commandButton>
 							<p:commandButton action="#{commentController.cancelComment}"
-								value="Cancel" ajax="false"/>
+								value="Cancel" ajax="false" />
 						</div>
 					</h:form>
 				</div>
