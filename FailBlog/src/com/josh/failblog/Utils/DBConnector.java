@@ -12,7 +12,15 @@ public class DBConnector {
 	private static final String SERVER = "jdbc:mysql://localhost:3306/FailBlog";
 
 	public static void main(String[] args) {
-
+		try {
+			if (DBConnector.connect() != null) {
+				System.out.println("Success");
+			} else {
+				System.out.println("Fail");
+			}
+		} catch (Exception e) {
+			System.out.println("Error");
+		}
 	}
 
 	public static Connection connect() throws ClassNotFoundException,

@@ -18,9 +18,11 @@ public class BlogBean implements Serializable {
 	private Date date;
 	private Integer userid;
 
-	public BlogBean() {}
+	public BlogBean() {
+	}
 
-	public BlogBean(String title, String content, String meta, Integer blogid, Integer userid, Date date) {
+	public BlogBean(String title, String content, String meta, Integer blogid,
+			Integer userid, Date date) {
 		this.title = title;
 		this.content = content;
 		this.meta = meta;
@@ -36,7 +38,7 @@ public class BlogBean implements Serializable {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
+
 	public Integer getBlogid() {
 		return blogid;
 	}
@@ -44,7 +46,7 @@ public class BlogBean implements Serializable {
 	public void setBlogid(Integer idNumber) {
 		this.blogid = idNumber;
 	}
-	
+
 	public String getContent() {
 		return content;
 	}
@@ -76,7 +78,7 @@ public class BlogBean implements Serializable {
 	public void setUserid(Integer userid) {
 		this.userid = userid;
 	}
-	
+
 	public String toString() {
 		return title;
 	}

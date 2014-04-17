@@ -61,18 +61,19 @@ public class TreeController implements Serializable {
 	public void setSelectedNode(TreeNode selectedNode) {
 		this.selectedNode = selectedNode;
 	}
-	
+
 	public BlogBean nodeData() {
 		return (BlogBean) selectedNode.getData();
 	}
-	
+
 	public static void main(String[] args) {
 		TreeController t = new TreeController();
 		System.out.println("Root: " + t.getRoot());
 		for (TreeNode node : t.getRoot().getChildren()) {
 			System.out.println("Node: " + node);
 			for (TreeNode leaf : node.getChildren()) {
-				System.out.println("Leaf: " + ((BlogBean) leaf.getData()).getContent());
+				System.out.println("Leaf: "
+						+ ((BlogBean) leaf.getData()).getContent());
 			}
 		}
 	}

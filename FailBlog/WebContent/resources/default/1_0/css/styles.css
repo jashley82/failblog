@@ -1,9 +1,9 @@
 body {
+	
 }
 
 #body {
 	background-color: #e9e9e9;
-	width: 800px;
 	margin: auto;
 	font-size: 10pt;
 }
@@ -20,7 +20,27 @@ body {
 	float: left;
 	margin: auto;
 	width: 215px;
-    padding-left: 25px;
+	padding-left: 25px;
+}
+
+#rightcontent {
+    float: right;
+    margin: auto;
+    width: 215px;
+    padding-left: 35px;
+    padding-right: 25px;
+}
+
+#centercontent {
+    margin: auto;
+    overflow: hidden;	
+}
+
+#footer {
+	font-size: 8pt;
+	text-align: center;
+	padding: 6px;
+	clear: both;
 }
 
 #control {
@@ -32,39 +52,25 @@ body {
 	margin: auto;
 }
 
-#rightcontent {
-	margin: auto;
-	width: 475px;
-	display: inline-block;
-	padding-left: 35px;
-	padding-right: 25px;
-}
-
 #title {
 	text-align: center;
 }
 
 #blog {
-
+	
 }
 
 #comments {
+	
 }
 
 #commenthead {
-    text-align: right;
-    width: 250px;
+	text-align: right;
+	width: 250px;
 }
 
 #commentbody {
-    width: 250px;
-}
-
-#footer {
-    font-size: 8pt;
-    text-align: center;
-    padding: 6px;
-    float: clear;
+	width: 250px;
 }
 
 a:hover {
@@ -76,9 +82,17 @@ h1 {
 }
 
 .dialog {
+	
 }
 
 .error {
 	font-weight: bold;
 	color: red;
+}
+
+.code-block {
+	margin: 0px 5px 10px 5px;
+	padding: 5px 20px 5px 20px;
+	font: 10pt monospace;
+	border: 1px inset;
 }

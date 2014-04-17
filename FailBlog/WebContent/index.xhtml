@@ -118,59 +118,52 @@
 						</h:panelGrid>
 					</h:form>
 				</div>
-
-
-				<!-- Blog Directory -->
-				<div id="dir">
-					<h:form>
-						<h:dataTable var="blogEntry" value="#{blogController.blogs}">
-							<h:column>
-								<p:commandLink value="#{blogEntry.title}" ajax="false"
-									action="#{blogController.renderBlog()}">
-									<f:setPropertyActionListener target="#{blogController.blog}"
-										value="#{blogEntry}" />
-									<f:setPropertyActionListener
-										target="#{commentController.blogid}"
-										value="#{blogEntry.blogid}" />
-								</p:commandLink>
-							</h:column>
-						</h:dataTable>
-					</h:form>
-
-
-					<h:form>
-						<p:tree value="#{treeController.root}" var="node" id="tree"
-							selectionMode="single" selection="#{treeController.selectedNode}">
-							<p:treeNode id="treeNode">
-								<p:commandLink action="#{blogController.renderBlog}"
-									ajax="false">
-									<h:outputText value="#{node}" />
-									<f:setPropertyActionListener target="#{blogController.blog}"
-										value="#{treeController.nodeData()}" />
-								</p:commandLink>
-							</p:treeNode>
-						</p:tree>
-					</h:form>
-				</div>
 			</div>
+			
+
+            <div id="rightcontent">
+                <!-- Blog Directory -->
+                <div id="dir">
+                    <h:form>
+                        <h:outputText value="Sort By: " />
+                        <p:selectOneMenu value="#{topicController.topic}" effect="fade">
+                            <f:selectItem itemLabel="Select One" itemValue="" />
+                            <f:selectItems value="#{topicController.topics}" var="topic"
+                                itemLabel="#{topic}" itemValue="#{topic}" />
+                        </p:selectOneMenu>
+                        <strong>#{topicController.topic}</strong>
+                    </h:form>
+
+                    <h:form>
+                        <h:dataTable var="blog" value="#{blogController.blogs}">
+                            <h:column>
+                                <p:commandLink value="#{blog}" ajax="false"
+                                    action="#{blogController.renderBlog()}">
+                                    <f:setPropertyActionListener target="#{blogController.blog}"
+                                        value="#{blog}" />
+                                    <f:setPropertyActionListener
+                                        target="#{commentController.blogid}" value="#{blog.blogid}" />
+                                </p:commandLink>
+                            </h:column>
+                        </h:dataTable>
+                    </h:form>
+                </div>
+            </div>
 
 
-			<div id="rightcontent">
-
-
+			<div id="centercontent">
 				<!-- Blog Content -->
 				<h:panelGroup rendered="#{not blogController.editable}">
-					<!-- 					<div id="title"> -->
-					<!-- 						<h2> -->
-					<!-- 							<h:outputText escape="false" value="#{blogController.blog.title}" /> -->
-					<!-- 						</h2> -->
-					<!-- 					</div> -->
-					<!-- 					<div id="blog"> -->
-					<!-- 						<h:outputText escape="false" -->
-					<!-- 							value="#{blogController.blog.content}" /> -->
-					<!-- 					</div> -->
-					<p:fieldset
-						legend="#{blogController.blog.title} Blogid: #{blogController.blog.blogid}">
+					<!--                    <div id="title"> -->
+					<!--                        <h2> -->
+					<!--                            <h:outputText escape="false" value="#{blogController.blog.title}" /> -->
+					<!--                        </h2> -->
+					<!--                    </div> -->
+					<!--                    <div id="blog"> -->
+					<!--                        <h:outputText escape="false" -->
+					<!--                            value="#{blogController.blog.content}" /> -->
+					<!--                    </div> -->
+					<p:fieldset legend="#{blogController.blog.title}">
 						<h:outputText escape="false"
 							value="#{blogController.blog.content}"></h:outputText>
 					</p:fieldset>
@@ -200,6 +193,7 @@
 					<div id="content">
 						<p:editor id="editor" value="#{blogController.blog.content}"
 							width="475" />
+						<h:inputText value="#{blogController.blog.meta}" />
 					</div>
 					<div>
 						<p:commandButton action="#{blogController.saveBlog}" value="Save"
@@ -247,6 +241,8 @@
 				</div>
 
 			</div>
+
+
 		</div>
 		<div id="footer">
 			<p>FailBlog Part Deux by josh</p>

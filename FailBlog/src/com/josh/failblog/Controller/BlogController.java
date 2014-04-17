@@ -1,13 +1,10 @@
 package com.josh.failblog.Controller;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.TreeMap;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-
-import org.primefaces.model.TreeNode;
 
 import com.josh.failblog.Model.BlogBean;
 import com.josh.failblog.Utils.DBUtils;
@@ -99,14 +96,6 @@ public class BlogController implements Serializable {
 	}
 
 	public static void main(String[] args) {
-		TreeController t = new TreeController();
-		BlogController bc = new BlogController();
-		for (TreeNode node : t.getRoot().getChildren()) {
-			for (TreeNode leaf : node.getChildren()) {
-				bc.setBlog((BlogBean) leaf.getData());
-				System.out.println(bc.getBlog().getTitle());
-			}
-		}
 
 	}
 
