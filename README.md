@@ -1,9 +1,9 @@
 # failblog
-This was my first web app featuring:
+
 * MVC Architecture
 * Form and Model Validation
 * Single Page Application
-* Custom prepared SQL Statements
+* SQL Statements
 * Not built with an ORM
 * Java Server Faces 2.x 
 * Maintains application state via POST Parameters in lieu of Proper Routing
